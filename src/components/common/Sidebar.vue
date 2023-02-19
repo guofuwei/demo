@@ -53,32 +53,32 @@ export default {
                 // },
                 {
                     icon: 'el-icon-lx-people',
-                    index: 'table',
+                    index: 'employeeprofile',
                     title: '员工档案'
                 },
                 {
                     icon: 'el-icon-lx-recharge',
-                    index: 'tabs',
+                    index: 'salary',
                     title: '薪酬考勤'
                 },
                 {
                     icon: 'el-icon-lx-present',
-                    index: 'icon',
+                    index: 'socialmanage',
                     title: '社保管理'
                 },
                 {
                     icon: 'el-icon-lock',
-                    index: 'charts',
+                    index: 'insurance',
                     title: '雇主责任险'
                 },
                 {
                     icon: 'el-icon-lx-text',
-                    index: 'i18n',
+                    index: 'collectionform',
                     title: '收集表'
                 },
                 {
                     icon: 'el-icon-lx-settings',
-                    index: '/donate',
+                    index: '/senior',
                     title: '高级'
                 }
             ]
