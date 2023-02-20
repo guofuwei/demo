@@ -23,22 +23,33 @@
                 header-cell-class-name="table-header"
                 @selection-change="handleSelectionChange"
             >
-                <el-table-column type="selection" width="55" align="center"></el-table-column>
-                <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
+                <el-table-column type="selection"></el-table-column>
+                <el-table-column prop="id" label="序号"></el-table-column>
+                <el-table-column prop="projectId" label="项目编号"></el-table-column>
+                <el-table-column prop="settleUnit" label="结算单位"></el-table-column>
+                <el-table-column prop="contactType" label="合同类型"></el-table-column>
+                <el-table-column prop="IsSocialSecurity" label="是否交纳社保"></el-table-column>
+                <el-table-column prop="IsDeclareTax" label="是否申报个税"></el-table-column>
+                <el-table-column prop="IsRenew" label="是否续签"></el-table-column>
+                <el-table-column prop="SignSubject" label="签约主体"></el-table-column>
                 <el-table-column prop="name" label="用户名"></el-table-column>
-                <el-table-column label="账户余额">
-                    <template slot-scope="scope">￥{{ scope.row.money }}</template>
-                </el-table-column>
-                <el-table-column prop="address" label="地址"></el-table-column>
-                <el-table-column label="状态" align="center">
-                    <template slot-scope="scope">
-                        <el-tag :type="scope.row.state === '成功' ? 'success' : scope.row.state === '失败' ? 'danger' : ''">{{
-                            scope.row.state
-                        }}</el-tag>
-                    </template>
-                </el-table-column>
-
-                <el-table-column prop="date" label="注册时间"></el-table-column>
+                <el-table-column prop="sex" label="性别"></el-table-column>
+                <el-table-column prop="telephone" label="电话"></el-table-column>
+                <el-table-column prop="householdType" label="户籍类型"></el-table-column>
+                <el-table-column prop="idNumber" label="身份证号"></el-table-column>
+                <el-table-column prop="householdAddress" label="户籍地址"></el-table-column>
+                <el-table-column prop="entryDate" label="入职日期"></el-table-column>
+                <el-table-column prop="post" label="岗位"></el-table-column>
+                <el-table-column prop="baseSalary" label="基本工资"></el-table-column>
+                <el-table-column prop="bankCardNumber" label="银行卡号"></el-table-column>
+                <el-table-column prop="compactStartDate" label="合同开始日期"></el-table-column>
+                <el-table-column prop="compactEndDate" label="合同结束日期"></el-table-column>
+                <el-table-column prop="contactSignDate" label="合同签发日期"></el-table-column>
+                <el-table-column prop="remainDays" label="到期天数"></el-table-column>
+                <el-table-column prop="status" label="状态"></el-table-column>
+                <el-table-column prop="contactStatus" label="劳动合同状态"></el-table-column>
+                <el-table-column prop="project" label="所在项目"></el-table-column>
+                <el-table-column prop="principal" label="项目负责人"></el-table-column>
                 <el-table-column label="操作" width="180" align="center">
                     <template slot-scope="scope">
                         <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
@@ -47,6 +58,16 @@
                         >
                     </template>
                 </el-table-column>
+                <!-- <el-table-column label="状态" align="center">
+                    <template slot-scope="scope">
+                        <el-tag :type="scope.row.state === '成功' ? 'success' : scope.row.state === '失败' ? 'danger' : ''">{{
+                            scope.row.state
+                        }}</el-tag>
+                    </template>
+                </el-table-column> -->
+                <!-- <el-table-column label="账户余额">
+                    <template slot-scope="scope">￥{{ scope.row.money }}</template>
+                </el-table-column> -->
             </el-table>
             <div class="pagination">
                 <el-pagination
@@ -84,6 +105,7 @@ export default {
     name: 'basetable',
     data() {
         return {
+            url: './table.json',
             query: {
                 address: '',
                 name: '',
@@ -106,10 +128,15 @@ export default {
     methods: {
         // 获取 easy-mock 的模拟数据
         getData() {
-            fetchData(this.query).then((res) => {
+            // fetchData(this.url).then((res) => {
+            //     // console.log(res);
+            //     this.tableData = res.list;
+            //     this.pageTotal = res.pageTotal || 50;
+            // });
+            fetchData('https://www.fastmock.site/mock/4e37c652ca0cb3974c08f37b4ae0ad79/demo/api/employeeprofile').then((res) => {
                 console.log(res);
-                this.tableData = res.list;
-                this.pageTotal = res.pageTotal || 50;
+                this.tableData = res.data.employeeProfile;
+                this.pageTotal = res.data.pageTotal || 50;
             });
         },
         // 触发搜索按钮

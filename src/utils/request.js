@@ -8,24 +8,24 @@ const service = axios.create({
 });
 
 service.interceptors.request.use(
-    config => {
+    (config) => {
         return config;
     },
-    error => {
+    (error) => {
         console.log(error);
         return Promise.reject();
     }
 );
 
 service.interceptors.response.use(
-    response => {
+    (response) => {
         if (response.status === 200) {
             return response.data;
         } else {
             Promise.reject();
         }
     },
-    error => {
+    (error) => {
         console.log(error);
         return Promise.reject();
     }
