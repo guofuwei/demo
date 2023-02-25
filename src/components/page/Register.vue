@@ -4,22 +4,32 @@
       <div class="ms-title">后台管理系统</div>
       <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
         <el-form-item prop="account">
-          <el-input v-model="param.account" placeholder="account">
+          <el-input v-model="param.username" placeholder="account">
             <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
           </el-input>
         </el-form-item>
-
         <el-form-item prop="password">
           <el-input type="password" placeholder="password" v-model="param.password" @keyup.enter.native="submitForm()">
             <el-button slot="prepend" icon="el-icon-lx-lock"></el-button>
           </el-input>
         </el-form-item>
-
+        <el-form-item prop="name">
+          <el-input v-model="param.name" placeholder="name">
+            <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
+          </el-input>
+        </el-form-item>
+        <el-form-item prop="email">
+          <el-input v-model="param.email" placeholder="email">
+            <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
+          </el-input>
+        </el-form-item>
+        <el-form-item prop="phone">
+          <el-input v-model="param.phone" placeholder="phone">
+            <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
+          </el-input>
+        </el-form-item>
         <div class="login-btn">
-          <el-button type="primary" @click="submitForm()">登录</el-button>
-        </div>
-        <div class="tiparea">
-          <p>还没有账号？现在<router-link to="/register">注册</router-link></p>
+          <el-button type="primary" @click="submitForm()">注册</el-button>
         </div>
       </el-form>
     </div>
@@ -32,22 +42,24 @@ export default {
   data: function () {
     return {
       param: {
-        account: 'admin',
-        password: '123123'
+        account: '',
+        password: '',
+        name: '',
+        email: '',
+        phone: ''
       },
       rules: {
         account: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-        password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
+        password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+        name: [{ required: true, message: '请输入昵称', trigger: 'blur' }],
+        email: [{ required: true, message: '请输入电子邮箱', trigger: 'blur' }],
+        phone: [{ required: true, message: '请输入电话号码', trigger: 'blur' }]
       }
     };
   },
   methods: {
     submitForm() {
       this.$refs.login.validate((valid) => {
-        this.$message.success('登录成功!');
-        localStorage.setItem('ms_account', this.param.account);
-        this.$router.push('/');
-        return;
         if (valid) {
           postData('', this.param).then((res) => {
             if (res.code != 200) {
@@ -55,11 +67,10 @@ export default {
               return;
             }
             this.$message.success(res.message);
-            localStorage.setItem('ms_account', res.token);
-            this.$router.push('/');
+            this.$router.push('/login');
           });
         } else {
-          this.$message.warning('请输入账号和密码');
+          this.$message.warning('请将注册信息完整填写');
         }
       });
     }
@@ -108,13 +119,5 @@ export default {
   font-size: 12px;
   line-height: 30px;
   color: #fff;
-}
-.tiparea {
-  text-align: right;
-  font-size: 12px;
-  color: #333;
-}
-.tiparea p a {
-  color: #409eff;
 }
 </style>
